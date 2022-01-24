@@ -131,7 +131,8 @@ namespace Codaxy.WkHtmlToPdf
             }
 
             String oldOutputPdfFilePath = outputPdfFilePath;
-            outputPdfFilePath = Regex.Replace(outputPdfFilePath, @"[^\u0000-\u007F]", String.Empty);
+            // First 128 ASCII symbols + most common umlauts
+            outputPdfFilePath = Regex.Replace(outputPdfFilePath, @"[^\u0000-\u00F7à-úÀ-Úä-üÄ-Üß]", String.Empty);
 
             if (!File.Exists(environment.WkHtmlToPdfPath))
                 throw new PdfConvertException(String.Format("File '{0}' not found. Check if wkhtmltopdf application is installed.", environment.WkHtmlToPdfPath));
